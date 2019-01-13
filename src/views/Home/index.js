@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { env } from '../../helpers'
 export default class Home extends Component {
 
   actions () {
@@ -10,9 +11,9 @@ export default class Home extends Component {
 
   render () {
     return (
-      <div>
+      <div style={{padding: '80px 0 80px 0'}}>
         <h1> Home </h1>
-        { console.log(process.env) }
+        { (env('API_SECRET', 'ds')) }
         <p>Sit esse labore et consequat reprehenderit ut duis cillum qui cillum. Enim qui et esse nostrud laboris anim laboris excepteur tempor. Cupidatat commodo ea id magna nulla dolor minim.</p>
       </div>
     )

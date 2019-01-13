@@ -1,26 +1,26 @@
 import React from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
-import './App.css';
-import 'bootstrap/dist/css/bootstrap.css';
-import { Container } from 'reactstrap';
+import { Router, Route, Switch, Redirect } from 'react-router-dom';
+import { createBrowserHistory } from "history";
+import { PrivateRoute } from 'helpers'
+// Layouts
+import AdminLayout from "layouts/Admin/Admin";
+import DefaultLayout from "layouts/Default";
 
+// Initialize plugins
+import 'plugins/axios'
+import 'plugins/theme'
 
-import Header from './components/header';
-import Footer from './components/footer';
-import HomeView from './views/Home'
-import AboutView from './views/About'
-import LoginView from './views/Login'
+const hist = createBrowserHistory();
 
 const App = () => (
-  <Router>
+  <Router history={hist}>
     <div className="App">
-      <Header />
-      <Container>
-        <Route path="/" exact component={HomeView} />
-        <Route path="/about" component={AboutView} />
-        <Route path="/login" component={LoginView} />
-      </Container>
-      <Footer />
+      <Switch>
+        <PrivateRoute path="/admin" render={props => <AdminLayout {...props} />} />
+        <Route path="/login" render={props => <DefaultLayout {...props} />} /> 
+        <Route path="/" render={props => <DefaultLayout {...props} />} /> 
+        <Redirect from="*" to="/" />
+      </Switch>
     </div>
   </Router>
 )
