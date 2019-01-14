@@ -101,7 +101,6 @@ class Admin extends React.Component {
     return "Brand";
   };
   getNavbar = () => {
-    console.log(this.props.location.pathname === '/login')
     const isLoginView = this.props.location.pathname === '/login'
     return isLoginView ? null : <GuestNavbar
               {...this.props}

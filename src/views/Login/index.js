@@ -2,8 +2,16 @@ import React, { Component } from 'react';
 import { Label, FormGroup, Form, Button, Input } from 'reactstrap'
 import { oauth } from 'oauth'
 import NotificationAlert from "react-notification-alert"
+import { connect } from 'react-redux'
+import { setCurrentUser } from 'store/users/actions'
 
-export default class Login extends Component {
+const mapDispatchToProps = dispatch => {
+  return {
+    setCurrentUser: user => dispatch(setCurrentUser(user))
+  }
+}
+
+class Login extends Component {
   constructor(props) {
     super(props)
     this.storeInputValue = this.storeInputValue.bind(this)
@@ -94,3 +102,5 @@ export default class Login extends Component {
     )
   }
 }
+
+export default connect(null, mapDispatchToProps)(Login)

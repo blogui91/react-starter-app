@@ -1,12 +1,35 @@
-/*eslint-disable*/
-import React from "react";
+/* eslint-disable */
+import React from "react"
 // used for making the prop types of this component
-import PropTypes from "prop-types";
-
+// import PropTypes from "prop-types"
+import { connect } from 'react-redux'
 // reactstrap components
-import { Container, Row, Nav, NavItem, NavLink } from "reactstrap";
+import { Container, Nav, NavItem, NavLink } from "reactstrap"
+
+// Actions
+import { getArticles } from 'store/articles/actions'
+
+const mapStateToProps = state => {
+  const { articlesReducer } = state
+  return {
+    articles: articlesReducer.articles
+  }
+}
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getArticles: () => dispatch(getArticles())
+  }
+}
 
 class Footer extends React.Component {
+  getPosts = () => {
+    const response = this.props.getArticles()
+  }
+
+  componentDidMount () {
+    // this.getPosts()
+  }
+
   render() {
     return (
       <footer className="footer">
@@ -40,4 +63,4 @@ class Footer extends React.Component {
   }
 }
 
-export default Footer;
+export default connect(mapStateToProps, mapDispatchToProps)(Footer);

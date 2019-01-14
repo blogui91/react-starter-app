@@ -15,10 +15,34 @@ import {
   Col
 } from "reactstrap";
 
+import { connect } from 'react-redux'
+
+const mapStateToProps = (state) => {
+  const { usersReducer } = state
+  return {
+    currentUser: usersReducer.currentUser
+  }
+}
 class UserProfile extends React.Component {
+  setEmail = (e) => {
+    console.log(e.target.value)
+  }
+
+  setFirstName = (e) => {
+    console.log(e.target.value)
+  }
+
+  setLastName = (e) => {
+    console.log(e.target.value)
+  }
+
+  setUsername = (e) => {
+    console.log(e.target.value)
+  }
+
+
   render() {
-    return (
-      <>
+    return <>
         <div className="content">
           <Row>
             <Col md="8">
@@ -32,30 +56,19 @@ class UserProfile extends React.Component {
                       <Col className="pr-md-1" md="5">
                         <FormGroup>
                           <label>Company (disabled)</label>
-                          <Input
-                            defaultValue="Creative Code Inc."
-                            disabled
-                            placeholder="Company"
-                            type="text"
-                          />
+                          <Input defaultValue="Creative Code Inc." disabled placeholder="Company" type="text" />
                         </FormGroup>
                       </Col>
                       <Col className="px-md-1" md="3">
                         <FormGroup>
                           <label>Username</label>
-                          <Input
-                            defaultValue="michael23"
-                            placeholder="Username"
-                            type="text"
-                          />
+                          <Input name="username" value={this.props.currentUser ? this.props.currentUser.username : ""} onChange={this.setUsername} placeholder="Username" type="text" />
                         </FormGroup>
                       </Col>
                       <Col className="pl-md-1" md="4">
                         <FormGroup>
-                          <label htmlFor="exampleInputEmail1">
-                            Email address
-                          </label>
-                          <Input placeholder="mike@email.com" type="email" />
+                          <label htmlFor="exampleInputEmail1">Email address</label>
+                          <Input name="email" placeholder="mike@email.com" value={this.props.currentUser ? this.props.currentUser.email : ""} onChange={this.setEmail} type="email" />
                         </FormGroup>
                       </Col>
                     </Row>
@@ -63,21 +76,13 @@ class UserProfile extends React.Component {
                       <Col className="pr-md-1" md="6">
                         <FormGroup>
                           <label>First Name</label>
-                          <Input
-                            defaultValue="Mike"
-                            placeholder="Company"
-                            type="text"
-                          />
+                          <Input name="first_name" value={this.props.currentUser ? this.props.currentUser.first_name : ""} onChange={this.setFirstName} placeholder="Company" type="text" />
                         </FormGroup>
                       </Col>
                       <Col className="pl-md-1" md="6">
                         <FormGroup>
                           <label>Last Name</label>
-                          <Input
-                            defaultValue="Andrew"
-                            placeholder="Last Name"
-                            type="text"
-                          />
+                          <Input name="last_name" value={this.props.currentUser ? this.props.currentUser.last_name : ""} onChange={this.setLastName} placeholder="Last Name" type="text" />
                         </FormGroup>
                       </Col>
                     </Row>
@@ -85,11 +90,7 @@ class UserProfile extends React.Component {
                       <Col md="12">
                         <FormGroup>
                           <label>Address</label>
-                          <Input
-                            defaultValue="Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09"
-                            placeholder="Home Address"
-                            type="text"
-                          />
+                          <Input defaultValue="Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09" placeholder="Home Address" type="text" />
                         </FormGroup>
                       </Col>
                     </Row>
@@ -97,21 +98,13 @@ class UserProfile extends React.Component {
                       <Col className="pr-md-1" md="4">
                         <FormGroup>
                           <label>City</label>
-                          <Input
-                            defaultValue="Mike"
-                            placeholder="City"
-                            type="text"
-                          />
+                          <Input defaultValue="Mike" placeholder="City" type="text" />
                         </FormGroup>
                       </Col>
                       <Col className="px-md-1" md="4">
                         <FormGroup>
                           <label>Country</label>
-                          <Input
-                            defaultValue="Andrew"
-                            placeholder="Country"
-                            type="text"
-                          />
+                          <Input defaultValue="Andrew" placeholder="Country" type="text" />
                         </FormGroup>
                       </Col>
                       <Col className="pl-md-1" md="4">
@@ -125,14 +118,8 @@ class UserProfile extends React.Component {
                       <Col md="8">
                         <FormGroup>
                           <label>About Me</label>
-                          <Input
-                            cols="80"
-                            defaultValue="Lamborghini Mercy, Your chick she so thirsty, I'm in
-                            that two seat Lambo."
-                            placeholder="Here can be your description"
-                            rows="4"
-                            type="textarea"
-                          />
+                          <Input cols="80" defaultValue="Lamborghini Mercy, Your chick she so thirsty, I'm in
+                            that two seat Lambo." placeholder="Here can be your description" rows="4" type="textarea" />
                         </FormGroup>
                       </Col>
                     </Row>
@@ -155,19 +142,14 @@ class UserProfile extends React.Component {
                     <div className="block block-three" />
                     <div className="block block-four" />
                     <a href="#pablo" onClick={e => e.preventDefault()}>
-                      <img
-                        alt="..."
-                        className="avatar"
-                        src={require("../assets/img/emilyz.jpg")}
-                      />
+                      <img alt="..." className="avatar" src={require("../assets/img/emilyz.jpg")} />
                       <h5 className="title">Mike Andrew</h5>
                     </a>
                     <p className="description">Ceo/Co-Founder</p>
                   </div>
                   <div className="card-description">
-                    Do not be scared of the truth because we need to restart the
-                    human foundation in truth And I love you like Kanye loves
-                    Kanye I love Rick Owens’ bed design but the back is...
+                    Do not be scared of the truth because we need to restart the human foundation in truth And I
+                    love you like Kanye loves Kanye I love Rick Owens’ bed design but the back is...
                   </div>
                 </CardBody>
                 <CardFooter>
@@ -188,8 +170,7 @@ class UserProfile extends React.Component {
           </Row>
         </div>
       </>
-    );
   }
 }
 
-export default UserProfile;
+export default connect(mapStateToProps)(UserProfile);
